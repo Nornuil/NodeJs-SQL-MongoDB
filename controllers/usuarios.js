@@ -4,11 +4,6 @@ const Usuario = require("../models/usuario");
 
 const usuariosGet = async (req = request, res = response) => {
   const { limite = 5, desde = 0 } = req.query;
-  // const usuarios = await Usuario.find({ estado: true })
-  //   .skip(Number(desde))
-  //   .limit(Number(limite));
-
-  // const total = await Usuario.countDocuments({ estado: true });
 
   //Mas eficiente en tiempo
   const [total, usuarios] = await Promise.all([

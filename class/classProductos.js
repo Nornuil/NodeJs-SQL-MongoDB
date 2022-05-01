@@ -1,9 +1,21 @@
 const knex = require("knex");
 
+const dbOptions2 = {
+  client: "mysql",
+  connection: {
+    host: "127.0.0.1",
+    database: "ecommerce",
+    user: "root",
+    password: "cejudo2868",
+    port: 3306,
+  },
+  pool: { min: 0, max: 7 },
+};
+
 class Productos {
-  constructor(dbOptions, table) {
-    this.knex = knex(dbOptions);
-    this.table = table;
+  constructor() {
+    this.knex = knex(dbOptions2);
+    this.table = "productos";
   }
 
   async isExist(id) {

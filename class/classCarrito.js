@@ -1,6 +1,18 @@
 const { Productos } = require("../class/classProductos");
 const knex = require("knex");
 
+const dbOptions2 = {
+  client: "mysql",
+  connection: {
+    host: "127.0.0.1",
+    database: "ecommerce",
+    user: "root",
+    password: "cejudo2868",
+    port: 3306,
+  },
+  pool: { min: 0, max: 7 },
+};
+
 const manejadorProductos = new Productos(
   {
     client: "mysql",
@@ -17,9 +29,9 @@ const manejadorProductos = new Productos(
 );
 
 class Carrito {
-  constructor(dbOptions, table) {
-    this.knex = knex(dbOptions);
-    this.table = table;
+  constructor() {
+    this.knex = knex(dbOptions2);
+    this.table = "carrito";
   }
 
   async getAll() {
@@ -82,18 +94,15 @@ class Carrito {
     if (indexCarrito == -1) {
       return false;
     } else {
-      if (listaCarritos[indexCarrito].productos != "") {
-        if (
-          JSON.parse(listaCarritos[indexCarrito].productos).id != idProducto
-        ) {
-          return false;
-        } else {
-          await this.knex
-            .from(this.table)
-            .where("id", parseInt(idCarrito))
-            .update("productos", "");
-          return true;
-        }
+      if (
+        listaCarritos[indexCarrito].productos != "" &&
+        JSON.parse(listaCarritos[indexCarrito].productos).id != idProducto
+      ) {
+        await this.knex
+          .from(this.table)
+          .where("id", parseInt(idCarrito))
+          .update("productos", "");
+        return true;
       } else {
         return false;
       }
