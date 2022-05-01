@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const dbOptions2 = "";
 
 const dbConnection = async (db) => {
   switch (db) {
@@ -20,6 +21,17 @@ const dbConnection = async (db) => {
 
     case "firebase":
       console.log("Contectó a firebase");
+      dbOptions2 = {
+        client: "mysql",
+        connection: {
+          host: "127.0.0.1",
+          database: "ecommerce",
+          user: "root",
+          password: "cejudo2868",
+          port: 3306,
+        },
+        pool: { min: 0, max: 7 },
+      };
       break;
     case "mysql":
       console.log("Contectó a sql");
@@ -32,4 +44,4 @@ const dbConnection = async (db) => {
   }
 };
 
-module.exports = { dbConnection };
+module.exports = { dbConnection, dbOptions2 };

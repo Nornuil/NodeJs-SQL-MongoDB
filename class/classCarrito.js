@@ -13,20 +13,7 @@ const dbOptions2 = {
   pool: { min: 0, max: 7 },
 };
 
-const manejadorProductos = new Productos(
-  {
-    client: "mysql",
-    connection: {
-      host: "127.0.0.1",
-      database: "ecommerce",
-      user: "root",
-      password: "cejudo2868",
-      port: 3306,
-    },
-    pool: { min: 0, max: 7 },
-  },
-  "productos"
-);
+const manejadorProductos = new Productos();
 
 class Carrito {
   constructor() {
